@@ -14,7 +14,8 @@ class Tasks:
                         "remove": Tasks.remove}
         return
 
-    def add(self,new_task):
+    def add(self,new_task_name):
+        new_task = Task(new_task_name)
         new_id = self.counter
 
         self.tasks[new_id] = [new_task]
@@ -55,5 +56,10 @@ class Tasks:
             reference = self.ids[reference]
 
         self.tasks.pop(reference)        
+
+        return
+    
+    def execute_comand(self,cmd,name = None):
+        self.comands[cmd](name)
 
         return

@@ -2,31 +2,57 @@ import sys
 from task import Task
 from tasks import Tasks
 
-def main():
+comand_with_txt = {"add"}
+comand_with_id_and_txt = {"remove","done"}
+
+def main(quit = False):
     
-    if len(sys.argv) > 3 or len(sys.argv) == 2:
-        print("Use: python tasker.py <cmd> <name_task>")
-        return
-    
-    elif len(sys.argv) == 3:
+    cmd = []
+
+    if quit == True:
+        return print("bye!")
+
+    if len(sys.argv) == 1:
+        cmd = input("insert comand, 'quit' to close the program:  ").split()
+        
+        if len(cmd) > 1:
+            return print("Use: python tasker.py <cmd> <name_task>")
+        
+        cmd = cmd[0]
+        
+        if cmd == "quit":
+            main(True)
+
+        if cmd in comand_with_txt:
+            name = input("task:  ")
+
+        elif cmd in comand_with_id_and_txt:
+            name = input("task or id:  ")
+        
+        else:
+            name = None
+
+        Tasks.execute_comand(cmd,name)
+
+    else:
         cmd = sys.argv[1]
-        name = sys.argv[2]
+        name = ' '.join(sys.argv[2:])
 
-        task = Task()  
-        task.execute_comand(cmd,name)
+        if cmd == "quit":
+                main(True)
     
-    else:
-        cmd = input("'quit' to close the program:  ")
+        if name == ' ':
+            if cmd in comand_with_txt:
+                name = input("task:  ")
+        
+            elif cmd in comand_with_id_and_txt:
+                name = input("task or id:  ")
 
-    if cmd in comand_with_txt:
-        name = input("task:  ")
-        task = Task()  
-        task.execute_comand(cmd,name)
-    elif cmd in comand_with_id_and_txt:
-        name = input("task or id:  ")
-    else:
-        task = Tasks()
-        task.execute_comand(cmd)
+            else:
+                name = None
+
+        Tasks.execute_comand(cmd,name)
+    
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,8 @@
 import sys
 
 class Task:
-    def __init__(self):
-        self.name = ""
+    def __init__(self,name):
+        self.name = f"{name}"
         self.state = 0
 
     def change_state(self):
